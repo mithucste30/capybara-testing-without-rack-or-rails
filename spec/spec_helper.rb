@@ -7,15 +7,15 @@ require 'capybara/poltergeist'
 Dir.glob(File.dirname(__FILE__) + '/factories/*', &method(:require))
 
 Capybara.javascript_driver = :poltergeist
-Capybara.save_and_open_page_path = File.dirname(__FILE__) + '/../snapshots'
+Capybara.save_path = File.dirname(__FILE__) + '/../snapshots'
 
 # This will ensure we are connecting to a remote server
 Capybara.run_server = false
 
 # Set the base URL for all our tests
-Capybara.app_host = 'http://www.google.com'
+Capybara.app_host = 'http://13.229.204.14'
 
-# RSpec configuration
+#RSpec configuration
 RSpec.configure do |config|
   config.before(:all) do
     # Create fixtures
@@ -34,10 +34,10 @@ RSpec.configure do |config|
 end
 
 #This will including the Capybara DSL in the tests, and not in a global scope
-module GoogleTests
-	include Capybara::DSL
+module TestDSL
+include Capybara::DSL
 
-	def teardown
+  def teardown
     Capybara.reset_sessions!    # Forget the (simulated) browser state
     Capybara.use_default_driver # Revert Capybara.current_driver to Capybara.default_driver
   end
